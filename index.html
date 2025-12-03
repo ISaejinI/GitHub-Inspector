@@ -14,14 +14,19 @@
     </header>
 
     <main>
-        <form>
+        <form id="search_form">
             <i class='bx  bx-search'></i> 
             <input type="search" name="searchBar" id="searchBar" placeholder="Enter GitHub username...">
             <button type="submit">Search</button>
         </form>
         <div class="search_results">
-            <div class="user_results">
-                <!-- NOTE - Afficher les utilisateurs correspondants ici -->
+            <div class="users_results">
+                <h2 class="title">Users</h2>
+                <p id="users_result_count" class="hide"><span id="users_number"></span> users found</p>
+
+                <div id="users_list">
+                    <!-- NOTE - Afficher les utilisateurs trouvés ici -->
+                </div>
             </div>
 
             <div class="user_info">
