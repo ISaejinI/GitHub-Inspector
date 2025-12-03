@@ -6,8 +6,8 @@ new APIrequests();
 console.log('GitHub Explorer');
 
 
-// const results = await new APIrequests().getSearchResults('ISaejinI');
-// console.log(results);
+const results = await new APIrequests().getSearchResults('ISaejinI');
+console.log(results);
 
 // const userDetails = await new APIrequests().getUserDetails('ISaejinI');
 // console.log(userDetails);

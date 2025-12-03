@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://cdn.boxicons.com/3.0.6/fonts/basic/boxicons.min.css' rel='stylesheet'>
     <title>GitHub Explorer</title>
 </head>
 
@@ -12,10 +13,33 @@
         <div id="logo"><img src="logo.svg" alt="logo"> <h1>GitHub Explorer</h1></div>
     </header>
 
-    <form>
-        <input type="search" name="searchBar" id="searchBar" placeholder="Enter GitHub username...">
-        <button type="submit">Search</button>
-    </form>
+    <main>
+        <form>
+            <i class='bx  bx-search'></i> 
+            <input type="search" name="searchBar" id="searchBar" placeholder="Enter GitHub username...">
+            <button type="submit">Search</button>
+        </form>
+        <div class="search_results">
+            <div class="user_results">
+                <!-- NOTE - Afficher les utilisateurs correspondants ici -->
+            </div>
+
+            <div class="user_info">
+                <div class="user_details">
+                    <!-- NOTE - Afficher les détails de l'utilisateur sélectionné ici -->
+                </div>
+
+                <div class="user_repos">
+                    <!-- NOTE - Afficher les dépôts de l'utilisateur sélectionné ici -->
+                </div>
+            </div>
+
+            <div class="repo_info">
+                <!-- NOTE - Afficher les détails du dépôt sélectionné ici -->
+            </div>
+        </div>
+    </main>
+
 
     <script type="module" src="/src/main.js"></script>
 </body>

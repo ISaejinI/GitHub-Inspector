@@ -4,8 +4,13 @@
     font-weight: 400;
 
     color-scheme: light dark;
-    color: #665142;
-    background-color: #FFF6EB;
+    color: var(--white);
+
+    --black: #010409;
+    --white: #F0F6FC;
+    --bg-black: #0D1117;
+    --gray: #9198a1;
+    --padding-search: 16px;
 
     font-synthesis: none;
     text-rendering: optimizeLegibility;
@@ -18,7 +23,7 @@
 }
 
 .lighter {
-    color: #A57E5F;
+    color: var(--gray);
 }
 
 #logo {
@@ -32,4 +37,52 @@
             fill: #F05B23;
         }
     }
+}
+
+header {
+    background-color: var(--black);
+}
+
+body {
+    background-color: var(--bg-black);
+    margin: 0;
+}
+
+main {
+    padding: 40px 64px;
+}
+
+form {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    i {
+        position: absolute;
+        left: var(--padding-search);
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    input {
+        width: 100%;
+        padding: var(--padding-search) 70px var(--padding-search) 48px;
+        border: none;
+        border-radius: 50px;
+        background-color: var(--black);
+        color: var(--white);
+    }
+    button {
+        position: absolute;
+        right: var(--padding-search);
+        top: 50%;
+        transform: translateY(-50%);
+        border: none;
+        border-radius: 50px;
+        background: var(--gray);
+        color: var(--white);
+        cursor: pointer;
+        height: 70%;
+        padding: 0 16px;
+    }
+    
 }
