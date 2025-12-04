@@ -38,17 +38,17 @@ export default class APIrequest {
 
     async getUserDetails(username) {
         const url = `https://api.github.com/users/${username}`;
-        return await this.getResult(url);
+        return await this.getResult(url, 'user_loader');
     };
 
     async getUserRepos(username) {
         const url = `https://api.github.com/users/${username}/repos`;
-        return await this.getResult(url);
+        return await this.getResult(url, 'repos_loader');
     };
 
     async getRepoCommits(username, repo) {
         const url = `https://api.github.com/repos/${username}/${repo}/commits`;
-        return await this.getResult(url);
+        return await this.getResult(url, 'repo_loader');
     };
 
     displayLoader(id) {

@@ -71,9 +71,36 @@ document.addEventListener('DOMContentLoaded', () => {
     function addListenersToUsers() {
         const users = document.querySelectorAll('.user');
         users.forEach(user => {
-            user.addEventListener('click', (e) => {
+            user.addEventListener('click', async (e) => {
                 users.forEach(u => u.classList.remove('selected'));
                 e.currentTarget.classList.add('selected');
+
+                const username = e.currentTarget.querySelector('.user_name').textContent;
+                console.log(`User ${username} clicked.`);
+
+                const results = await new APIrequests().getUserDetails(username);
+                // console.log(results);
+                if (typeof results === 'string') {
+                    usersList.innerHTML = `<p class="error_message">${results}</p>`;
+                    return;
+                }
+
+                const userCard = document.getElementById('user_card');
+                userCard.innerHTML = `
+                    <div id="user_loader" class="hide">Loading...</div>
+                    <div class="user_card_header">
+                        <img src="${results.avatar_url}" alt="${results.login}'s Avatar" class="user_card_avatar">
+                        <div class="user_card_names">
+                            <h3 class="user_card_name">${results.name ? results.name : results.login}</h3>
+                            <p class="user_card_username lighter">@${results.login}</p>
+                        </div>
+                    </div>
+                    <div class="user_card_body">
+                        <p class="user_card_bio">${results.bio ? results.bio : 'No bio available.'}</p>
+                        <p class="user_card_location">${results.location ? results.location : 'Location not specified.'}</p>
+                        <p class="user_card_stats">Followers: ${results.followers} | Following: ${results.following} | Public Repos: ${results.public_repos}</p>
+                    </div>
+                `;
 
             });
         });

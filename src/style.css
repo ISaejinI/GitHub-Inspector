@@ -125,7 +125,17 @@ form {
     padding-top: 32px;
 }
 
-.users_results, .user_details, .user_repos, .repo_info {
+.user_repos, .repo_info {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    border: solid 1px var(--border-color);
+    border-radius: 8px;
+    gap: 16px;
+    /* overflow-y: scroll; */
+}
+
+.users_results, .user_details {
     display: flex;
     flex-direction: column;
     padding: 16px;
@@ -146,9 +156,11 @@ form {
 }
 
 
-#users_list {
+#users_list, #user_card, #user_repos, #repo_info {
     position: relative;
     flex-grow: 1;
+    overflow-y: scroll;
+    height: 50px;
 }
 
 .user_results {
@@ -159,7 +171,7 @@ form {
     height: 100%;
 }
 
-#users_loader {
+#users_loader, #user_loader {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -197,4 +209,29 @@ form {
 .selected {
     border: solid 1px var(--blue);
     border-radius: 8px;
+}
+
+#user_card {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.user_card_avatar {
+    border-radius: 50%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    width: 125px;
+    height: 125px;
+}
+
+.user_card_header {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+h3 {
+    margin: 0;
+    /* font-size: 18px; */
 }
