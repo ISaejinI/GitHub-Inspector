@@ -53,4 +53,9 @@ export default class APIrequest {
         // Afficher le loader
         document.getElementById(id).classList.remove('hide');
     }
+
+    hideLoader(id) {
+        // Cacher le loader
+        document.getElementById(id).classList.add('hide');
+    }
 }

@@ -35,13 +35,28 @@ document.addEventListener('DOMContentLoaded', () => {
             const results = await new APIrequests().getSearchResults(username);
             console.log(results.items);
 
+            const usersResult = results.items;
+            const numberResults = usersResult.length;
 
+            // Afficher le nombre de résultats
+            const counter = document.getElementById('users_number');
+            counter.textContent = numberResults;
+            document.getElementById('users_result_count').classList.remove('hide');
 
+            const usersList = document.getElementById('users_list');
+            usersList.innerHTML = '<div id="users_loader" class="hide">Loading...</div>';
 
-            const result = new Promise ((resolve, reject) => {
-
-            })
-
+            usersResult.forEach(user => {
+                usersList.innerHTML += `
+                <div class="user">
+                    <img src="${user.avatar_url}" alt="User Avatar" class="user_avatar">
+                    <div class="user_username">
+                        <p class="user_name">${user.login}</p>
+                        <p class="user_id lighter">@${user.id}</p>
+                    </div>
+                </div>
+                `;
+            });
         }
     });
 });
