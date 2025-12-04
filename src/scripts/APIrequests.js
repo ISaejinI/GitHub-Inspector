@@ -1,12 +1,9 @@
-export default class APIrequest {
+import { displayLoader, hideLoader } from "./ui";
+
+class APIrequest {
     constructor() {
         this.myToken = import.meta.env.VITE_GITHUB_TOKEN;
-        this.parameters = '';
-
-        this.init();
-    };
-
-    init() {
+        this.parameters = {};
         this.setParameters();
     };
 
@@ -20,10 +17,10 @@ export default class APIrequest {
 
     async getResult(url, idLoader) {
         try {
-            this.displayLoader(idLoader);
+            displayLoader(idLoader);
             const response = await fetch(url, {...this.parameters});
             const data = await response.json();
-            this.hideLoader(idLoader);
+            hideLoader(idLoader);
             return data;
         } catch (error) {
             console.error('Error: ', error);
@@ -51,15 +48,18 @@ export default class APIrequest {
         return await this.getResult(url, 'repo_loader');
     };
 
-    displayLoader(id) {
-        if (!id) return;
-        const el = document.getElementById(id);
-        if (el && el.classList) el.classList.remove('hide');
-    }
+    // displayLoader(id) {
+    //     if (!id) return;
+    //     const el = document.getElementById(id);
+    //     if (el && el.classList) el.classList.remove('hide');
+    // }
 
-    hideLoader(id) {
-        if (!id) return;
-        const el = document.getElementById(id);
-        if (el && el.classList) el.classList.add('hide');
-    }
+    // hideLoader(id) {
+    //     if (!id) return;
+    //     const el = document.getElementById(id);
+    //     if (el && el.classList) el.classList.add('hide');
+    // }
 }
+
+const api = new APIrequest();
+export default api;
