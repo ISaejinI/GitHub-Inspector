@@ -37,22 +37,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const usersResult = results.items;
             const numberResults = usersResult.length;
+            const counter = document.getElementById('users_number');
+            counter.textContent = numberResults;
+            document.getElementById('users_result_count').classList.remove('hide');
 
             if (numberResults === 0) {
                 usersList.innerHTML = '<p class="lighter">No users found.</p>';
                 return;
             }
 
-            const counter = document.getElementById('users_number');
-            counter.textContent = numberResults;
-            document.getElementById('users_result_count').classList.remove('hide');
 
             usersList.innerHTML = '<div id="users_loader" class="hide">Loading...</div>';
 
             usersResult.forEach(user => {
                 usersList.innerHTML += `
                 <div class="user">
-                    <img src="${user.avatar_url}" alt="User Avatar" class="user_avatar">
+                    <img src="${user.avatar_url}" alt="${user.login}'s Avatar" class="user_avatar">
                     <div class="user_username">
                         <p class="user_name">${user.login}</p>
                         <p class="user_id lighter">@${user.id}</p>
