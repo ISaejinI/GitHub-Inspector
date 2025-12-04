@@ -4,14 +4,16 @@
     font-weight: 400;
 
     color-scheme: light dark;
-    color: var(--white);
-
+    
     --black: #010409;
     --white: #F0F6FC;
     --bg-black: #0D1117;
     --gray: #9198a1;
     --border-color: #3D444D;
+    --blue: #58A6FF;
     --padding-search: 16px;
+    
+    color: var(--white);
 
     font-synthesis: none;
     text-rendering: optimizeLegibility;
@@ -167,6 +169,7 @@ form {
     padding: 8px 0;
     margin: 0 24px;
     border-bottom: solid 1px var(--border-color);
+    cursor: pointer;
 
     &:last-child {
         border-bottom: none;
@@ -179,4 +182,9 @@ form {
         width: 50px;
         height: 50px;
     }
+}
+
+.selected {
+    border: solid 1px var(--blue);
+    border-radius: 8px;
 }

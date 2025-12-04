@@ -18,10 +18,6 @@ console.log('GitHub Explorer');
 // const repoCommits = await new APIrequests().getRepoCommits('ISaejinI', 'GitHub-Inspector');
 // console.log(repoCommits);
 
-
-// Au clic du bouton de recherche, récupérer la valeur de l'input et lancer la recherche
-
-
 document.addEventListener('DOMContentLoaded', () => {
     const searchForm = document.getElementById('search_form');
 
@@ -30,20 +26,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const searchInput = document.getElementById('searchBar');
         const username = searchInput.value.trim();
+        const usersList = document.getElementById('users_list');
 
         if (username) {
             const results = await new APIrequests().getSearchResults(username);
-            console.log(results.items);
+            if (typeof results === 'string') {
+                usersList.innerHTML = `<p class="error_message">${results}</p>`;
+                return;
+            }
 
             const usersResult = results.items;
             const numberResults = usersResult.length;
 
-            // Afficher le nombre de résultats
+            if (numberResults === 0) {
+                usersList.innerHTML = '<p class="lighter">No users found.</p>';
+                return;
+            }
+
             const counter = document.getElementById('users_number');
             counter.textContent = numberResults;
             document.getElementById('users_result_count').classList.remove('hide');
 
-            const usersList = document.getElementById('users_list');
             usersList.innerHTML = '<div id="users_loader" class="hide">Loading...</div>';
 
             usersResult.forEach(user => {
@@ -57,7 +60,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 `;
             });
+
+            addListenersToUsers();
         }
     });
+
+
+
+
+    function addListenersToUsers() {
+        const users = document.querySelectorAll('.user');
+        users.forEach(user => {
+            user.addEventListener('click', (e) => {
+                users.forEach(u => u.classList.remove('selected'));
+                e.currentTarget.classList.add('selected');
+
+            });
+        });
+    }
+
+
+
 });
 

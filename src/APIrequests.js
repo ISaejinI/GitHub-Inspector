@@ -18,20 +18,24 @@ export default class APIrequest {
         };
     };
 
-    async getResult(url) {
+    async getResult(url, idLoader) {
         try {
+            this.displayLoader(idLoader);
+
             const response = await fetch(url, {...this.parameters});
             const data = await response.json();
             return data;
         } catch (error) {
             console.error('Error: ', error);
+            // throw error;
+            return 'An error occurred while fetching data from GitHub API.';
         }
     };
 
     async getSearchResults(username) {
         const url = `https://api.github.com/search/users?q=${username}`;
         // retourne aussi le status (pending, fulfilled, rejected)
-        return await this.getResult(url);
+        return await this.getResult(url, 'users_loader');
     };
 
     async getUserDetails(username) {
