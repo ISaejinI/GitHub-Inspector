@@ -4,26 +4,15 @@ import APIrequests from './APIrequests.js';
 
 new APIrequests();
 
-console.log('GitHub Explorer');
-
-
-// const results = await new APIrequests().getSearchResults('ISaejinI');
-// console.log(results);
-
-// const userDetails = await new APIrequests().getUserDetails('ISaejinI');
-// console.log(userDetails);
-
-// const userRepos = await new APIrequests().getUserRepos('ISaejinI');
-// console.log(userRepos);
-
-// const repoCommits = await new APIrequests().getRepoCommits('ISaejinI', 'GitHub-Inspector');
-// console.log(repoCommits);
-
 document.addEventListener('DOMContentLoaded', () => {
     const searchForm = document.getElementById('search_form');
 
     searchForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+
+        flushUsersList();
+        flushUserDetails();
+        flushCommits();
 
         const searchInput = document.getElementById('searchBar');
         const username = searchInput.value.trim();
@@ -76,6 +65,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 users.forEach(u => u.classList.remove('selected'));
                 e.currentTarget.classList.add('selected');
 
+                flushUserDetails();
+                flushCommits();
+
                 const username = e.currentTarget.querySelector('.user_name').textContent;
                 console.log(`User ${username} clicked.`);
 
@@ -110,7 +102,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
 
-                // console.log(reposResults);
                 const userRepos = document.getElementById('user_repos');
                 userRepos.innerHTML = '<div id="repos_loader" class="hide">Loading...</div>';
                 reposResults.forEach(repo => {
@@ -135,6 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
             repo.addEventListener('click', async (e) => {
                 repos.forEach(u => u.classList.remove('selected'));
                 e.currentTarget.classList.add('selected');
+                flushCommits();
 
                 const repoName = e.currentTarget.querySelector('.repo_name').textContent;
                 const username = document.querySelector('.user_card_username').textContent.slice(1);
@@ -161,3 +153,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
+
+
+// Gestion des champs
+function flushCommits() {
+    const commitsList = document.getElementById('repo_info');
+    commitsList.innerHTML = `
+        <div id="repo_loader" class="hide">Loading...</div>
+        <p class="lighter">No repository selected</p>
+    `;
+}
+
+function flushUserDetails() {
+    const userCard = document.getElementById('user_card');
+    userCard.innerHTML = `
+        <div id="user_loader" class="hide">Loading...</div>
+        <p class="lighter">No user selected</p>
+    `;
+
+    const userRepos = document.getElementById('user_repos');
+    userRepos.innerHTML = `
+        <div id="repos_loader" class="hide">Loading...</div>
+        <p class="lighter">No repositories to display</p>
+    `;
+}
+
+function flushUsersList() {
+    const usersList = document.getElementById('users_list');
+    usersList.innerHTML = `
+        <div id="users_loader" class="hide">Loading...</div>
+        <p class="lighter">No users to display</p>
+    `;
+}

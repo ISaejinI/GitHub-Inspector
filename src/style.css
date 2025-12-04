@@ -239,3 +239,12 @@ form {
 h3, h4 {
     margin: 0;
 }
+
+.commit {
+    padding: 8px 0;
+    border-bottom: solid 1px var(--border-color);
+
+    &:last-child {
+        border-bottom: none;
+    }
+}
