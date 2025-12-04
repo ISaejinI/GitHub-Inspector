@@ -125,14 +125,24 @@ form {
     padding-top: 32px;
 }
 
-.users_results {
+.users_results, .user_details, .user_repos, .repo_info {
     display: flex;
     flex-direction: column;
-    height: 100%;
     padding: 16px;
     border: solid 1px var(--border-color);
     border-radius: 8px;
     gap: 16px;
+}
+
+.user_info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.user_details, .user_repos {
+    height: 50%;
 }
 
 
