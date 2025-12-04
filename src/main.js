@@ -1,4 +1,5 @@
 import './style.css';
+import { format } from 'timeago.js';
 import APIrequests from './APIrequests.js';
 
 new APIrequests();
@@ -109,24 +110,54 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
 
-                console.log(reposResults);
+                // console.log(reposResults);
                 const userRepos = document.getElementById('user_repos');
                 userRepos.innerHTML = '<div id="repos_loader" class="hide">Loading...</div>';
                 reposResults.forEach(repo => {
                     userRepos.innerHTML += `
                     <div class="repo">
                         <h4 class="repo_name">${repo.name}</h4>
-                        <p>Updated ${repo.updated_at} ago</p>
+                        <p>Updated ${format(repo.updated_at)}</p>
                     </div>
                     `;
+
                 });
-
-
+                addListenersToRepos();
+                
             });
         });
     }
 
 
+    function addListenersToRepos() {
+        const repos = document.querySelectorAll('.repo');
+        repos.forEach(repo => {
+            repo.addEventListener('click', async (e) => {
+                repos.forEach(u => u.classList.remove('selected'));
+                e.currentTarget.classList.add('selected');
+
+                const repoName = e.currentTarget.querySelector('.repo_name').textContent;
+                const username = document.querySelector('.user_card_username').textContent.slice(1);
+                const repoCommits = await new APIrequests().getRepoCommits(username, repoName);
+                if (typeof repoCommits === 'string') {
+                    userCard.innerHTML += `<p class="error_message">${repoCommits}</p>`;
+                    return;
+                }
+                console.log(repoCommits);
+
+                const commitsList = document.getElementById('repo_info');
+                commitsList.innerHTML = '<div id="repo_loader" class="hide">Loading...</div>';
+                repoCommits.forEach(commit => {
+                    commitsList.innerHTML += `
+                    <div class="commit">
+                        <p class="commit_message">${commit.commit.message}</p>
+                        <p class="commit_author lighter">Author: ${commit.commit.author.name} | Date: ${format(commit.commit.author.date)}</p>
+                    </div>
+                    `;
+                });
+            })
+        })
+    }
 
 });
 

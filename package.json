@@ -14,5 +14,9 @@
     "eslint-config-prettier": "^10.1.8",
     "prettier": "3.6.2",
     "vite": "^7.2.2"
+  },
+  "dependencies": {
+    "timeago": "^1.6.7",
+    "timeago.js": "^4.0.2"
   }
 }
