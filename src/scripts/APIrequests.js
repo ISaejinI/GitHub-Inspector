@@ -47,18 +47,6 @@ class APIrequest {
         const url = `https://api.github.com/repos/${username}/${repo}/commits`;
         return await this.getResult(url, 'repo_loader');
     };
-
-    // displayLoader(id) {
-    //     if (!id) return;
-    //     const el = document.getElementById(id);
-    //     if (el && el.classList) el.classList.remove('hide');
-    // }
-
-    // hideLoader(id) {
-    //     if (!id) return;
-    //     const el = document.getElementById(id);
-    //     if (el && el.classList) el.classList.add('hide');
-    // }
 }
 
 const api = new APIrequest();
