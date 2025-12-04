@@ -78,10 +78,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const username = e.currentTarget.querySelector('.user_name').textContent;
                 console.log(`User ${username} clicked.`);
 
-                const results = await new APIrequests().getUserDetails(username);
-                // console.log(results);
-                if (typeof results === 'string') {
-                    usersList.innerHTML = `<p class="error_message">${results}</p>`;
+                // Display selected user's information
+                const userResults = await new APIrequests().getUserDetails(username);
+                if (typeof userResults === 'string') {
+                    usersList.innerHTML = `<p class="error_message">${userResults}</p>`;
                     return;
                 }
 
@@ -89,18 +89,38 @@ document.addEventListener('DOMContentLoaded', () => {
                 userCard.innerHTML = `
                     <div id="user_loader" class="hide">Loading...</div>
                     <div class="user_card_header">
-                        <img src="${results.avatar_url}" alt="${results.login}'s Avatar" class="user_card_avatar">
+                        <img src="${userResults.avatar_url}" alt="${userResults.login}'s Avatar" class="user_card_avatar">
                         <div class="user_card_names">
-                            <h3 class="user_card_name">${results.name ? results.name : results.login}</h3>
-                            <p class="user_card_username lighter">@${results.login}</p>
+                            <h3 class="user_card_name">${userResults.name ? userResults.name : userResults.login}</h3>
+                            <p class="user_card_username lighter">@${userResults.login}</p>
                         </div>
                     </div>
                     <div class="user_card_body">
-                        <p class="user_card_bio">${results.bio ? results.bio : 'No bio available.'}</p>
-                        <p class="user_card_location">${results.location ? results.location : 'Location not specified.'}</p>
-                        <p class="user_card_stats">Followers: ${results.followers} | Following: ${results.following} | Public Repos: ${results.public_repos}</p>
+                        <p class="user_card_bio">${userResults.bio ? userResults.bio : 'No bio available.'}</p>
+                        <p class="user_card_location">${userResults.location ? userResults.location : 'Location not specified.'}</p>
+                        <p class="user_card_stats">Followers: ${userResults.followers} | Following: ${userResults.following} | Public Repos: ${userResults.public_repos}</p>
                     </div>
                 `;
+
+                // Display selected user's repositories
+                const reposResults = await new APIrequests().getUserRepos(username);
+                if (typeof reposResults === 'string') {
+                    userCard.innerHTML += `<p class="error_message">${reposResults}</p>`;
+                    return;
+                }
+
+                console.log(reposResults);
+                const userRepos = document.getElementById('user_repos');
+                userRepos.innerHTML = '<div id="repos_loader" class="hide">Loading...</div>';
+                reposResults.forEach(repo => {
+                    userRepos.innerHTML += `
+                    <div class="repo">
+                        <h4 class="repo_name">${repo.name}</h4>
+                        <p>Updated ${repo.updated_at} ago</p>
+                    </div>
+                    `;
+                });
+
 
             });
         });
